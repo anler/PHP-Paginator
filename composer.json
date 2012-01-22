@@ -1,0 +1,13 @@
+{
+  "name": "PHP-Paginator",
+  "type": "library",
+  "description": "An extensible PHP pagination library",
+  "keywords": ["pagination", "paginator"],
+  "version": "0.1 alpha",
+  "license": "MIT",
+  "authors": [{"name": "Anler Hernandez Peral", "email": "anler86@gmail.com"}],
+  "require": {
+    "php": ">= 5.3.2",
+    "symfony/class-loader": "2.1.*"
+  }
+}
