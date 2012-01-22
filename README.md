@@ -6,7 +6,7 @@ PHP-Paginator is a simple library inspired by the Django's pagination and based 
 
 ```php
 <?php
-echo;
+
 ```
 
 PHP-Paginator works with PHP 5.3.2 or later.
