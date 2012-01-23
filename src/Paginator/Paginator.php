@@ -29,6 +29,13 @@ class Paginator implements PaginatorInterface
 	 * @var boolean
 	 **/
 	protected $allowEmptyFirstPage;
+
+	/**
+	 * Cache the count of the items
+	 *
+	 * @var integer
+	 **/
+	protected $itemsCountCache;
 	
 	function __construct(PaginatedInterface $items, $pageSize = 10, $allowEmptyFirstPage = false)
 	{
@@ -66,17 +73,20 @@ class Paginator implements PaginatorInterface
 
 	public function getTotalPages()
 	{
-		return (int) ceil(count($this->items) / $this->pageSize);
+		return (int) ceil($this->getCountItems() / $this->pageSize);
 	}
 
 	public function getPageRange()
 	{
-		return range(0, count($this->items) - 1);
+		return range(0, $this->getCountItems() - 1);
 	}
 
 	public function getCountItems()
 	{
-		return count($this->items);
+		if ($this->itemsCountCache === null) {
+			$this->itemsCountCache = count($this->items);
+		}
+		return $this->itemsCountCache;
 	}
 
 	public function getItems()
