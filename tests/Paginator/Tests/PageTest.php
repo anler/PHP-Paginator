@@ -17,7 +17,10 @@ class PageTest extends \PHPUnit_Framework_TestCase
 		$this->data = array('Andrew', 'Bernard', 'Castello',
 							'Dennis', 'Ernie', 'Frank', 'Greg',
 							'Henry', 'Isac', 'Jax', 'Kester', 'Leonard',
-							'Matthew', 'Nigel', 'Oscar');
+							'Matthew', 'Nigel', 'Oscar', 'Joseph', 'Charles',
+							'Albert', 'Kenneth', 'Alex', 'Michael', 'Steve',
+							'Bill', 'August', 'Abdel', 'Marc', 'Rosen',
+							'Robert', 'Hugo', 'Paul', 'Adrian', 'Nicky');
 		$this->paginator = new Paginator(new PaginatedArray($this->data));
 	}
 
@@ -33,6 +36,9 @@ class PageTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue($page->hasNext());
 
 		$page = $this->paginator->getPage(2);
+		$this->assertTrue($page->hasNext());
+
+		$page = $this->paginator->getPage($this->paginator->getTotalPages());
 		$this->assertFalse($page->hasNext());
 	}
 
@@ -40,6 +46,9 @@ class PageTest extends \PHPUnit_Framework_TestCase
 	{
 		$page = $this->paginator->getPage(1);
 		$this->assertFalse($page->hasPrevious());
+
+		$page = $this->paginator->getPage(2);
+		$this->assertTrue($page->hasPrevious());
 
 		$page = $this->paginator->getPage($this->paginator->getTotalPages());
 		$this->assertTrue($page->hasPrevious());
@@ -81,6 +90,9 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
 		$page = $this->paginator->getPage(2);
 		$this->assertEquals(11, $page->getStartIndex());
+		$this->assertEquals(20, $page->getEndIndex());
+
+		$page = $this->paginator->getPage($this->paginator->getTotalPages());
 		$this->assertEquals($this->paginator->getCountItems(), $page->getEndIndex());
 	}
 

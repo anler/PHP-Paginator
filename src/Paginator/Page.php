@@ -64,7 +64,7 @@ class Page implements PageInterface
 			throw new Exception\InvalidPage;
 		}
 
-		$this->layout = new Layout\DoubleBarLayout;
+		$this->layout = new Layout\SimpleLayout;
 	}
 
 	public function getPaginator()
@@ -94,15 +94,7 @@ class Page implements PageInterface
 
 	public function hasPrevious()
 	{
-		$totalPages = $this->paginator->getTotalPages();
-		if ($totalPages > 1)
-		{
-			return $this->page >= $totalPages;
-		}
-		else
-		{
-			return false;
-		}
+		return $this->page > 1;
 	}
 
 	public function hasOtherPages()

@@ -7,7 +7,7 @@ use Paginator\PageInterface;
 /**
  * 
  **/
-class DoubleBarLayout implements PageLayoutInterface
+class SimpleLayout implements PageLayoutInterface
 {
 	public function renderNavigation(PageInterface $page, $options = array())
 	{
