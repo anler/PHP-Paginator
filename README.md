@@ -1,4 +1,4 @@
-# PHP-Paginator, an extensive paginator library for PHP
+# PHP-Paginator, an extensible paginator library for PHP
 
 PHP-Paginator is a simple library. It's inspired by the Django's pagination and this [tutorial][2], following the best practices from the [Symfony2][1] community.
 
