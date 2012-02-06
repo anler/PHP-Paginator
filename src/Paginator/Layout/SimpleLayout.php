@@ -9,6 +9,32 @@ use Paginator\PageInterface;
  **/
 class SimpleLayout implements PageLayoutInterface
 {
+	/**
+	 * Holds the rendering options
+	 *
+	 * @var array
+	 */
+	protected $options;
+	
+	public function __construct($options = array())
+	{
+		$this->options = array_merge(array(
+			'url' => '',
+			'pageParam' => 'page',
+			'querystring' => ''
+		), $options);
+	}
+	
+	public function setOption($name, $value)
+	{
+		$this->options[$name] = $value;
+	}
+	
+	public function getOption($name)
+	{
+		return $this->options[$name];
+	}
+	
 	public function renderNavigation(PageInterface $page, $options = array())
 	{
 		$options = array_merge(array(
