@@ -28,9 +28,18 @@ class Page implements PageInterface
 	 * @var object
 	 **/
 	protected $layout;
+	
+	/**
+	 * Wether or not this page is empty
+	 *
+	 * @var string
+	 */
+	protected $empty;
 
 	public function __construct($paginator, $page = 1)
 	{
+		$this->empty = false;
+		
 		if ($paginator instanceof Paginator)
 		{
 			$this->paginator = $paginator;
@@ -40,31 +49,30 @@ class Page implements PageInterface
 			throw new Exception\InvalidPage("The paginator must be an instance of a class implementing PaginatorInterface");
 		}
 
-		if (is_int($page) && $page > 0)
-		{
-			if ($page > $paginator->getTotalPages())
-			{
-				if ($page == 1)
-				{
-					if (!$paginator->getAllowEmptyFirstPage())
-					{
+		if (is_int($page) && $page > 0)	{
+			if ($page > $paginator->getTotalPages()) {
+				if ($page == 1)	{
+					if (!$paginator->getAllowEmptyFirstPage()) {
 						throw new Exception\EmptyPage;
+					} else {
+						$this->empty = true;
 					}
-				}
-				else
-				{
+				} else {
 					throw new Exception\InvalidPage;
 				}
 			}
 
 			$this->page = $page;
-		}
-		else
-		{
+		} else {
 			throw new Exception\InvalidPage;
 		}
 
 		$this->layout = new Layout\SimpleLayout;
+	}
+	
+	public function isEmpty()
+	{
+		return $this->empty;
 	}
 
 	public function getPaginator()
@@ -74,12 +82,16 @@ class Page implements PageInterface
 
 	public function getIterator()
 	{
-		$pageSize = $this->paginator->getPageSize();
-		return new \ArrayIterator(
-			$this->paginator->getItems()->getSlice(
+		if ($this->isEmpty()) {
+			$iterator = array();
+		} else {
+			$iterator = $this->paginator->getItems()->getSlice(
 				$this->paginator->getPageSize(),
 				$this->getStartIndex() - 1
-			));
+			);
+		}
+
+		return new \ArrayIterator($iterator);
 	}
 
 	public function getNumber()

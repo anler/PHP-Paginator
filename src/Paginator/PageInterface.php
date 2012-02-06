@@ -34,4 +34,6 @@ interface PageInterface extends \IteratorAggregate
 	public function renderNavigation();
 
 	public function getPaginator();
+	
+	public function isEmpty();
 }
