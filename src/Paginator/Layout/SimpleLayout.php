@@ -37,11 +37,11 @@ class SimpleLayout implements PageLayoutInterface
 	
 	public function renderNavigation(PageInterface $page, $options = array())
 	{
-		$options = array_merge(array(
-			'url' => '',
-			'pageParam' => 'page',
-			'querystring' => ''
-		), $options);
+		if ($options) {
+			$options = array_merge($this->options, $options);
+		} else {
+			$options = $this->options;
+		}
 
 		$buffer = array();
 		if ($page->hasPrevious())
